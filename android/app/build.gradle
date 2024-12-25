@@ -3,6 +3,7 @@ apply plugin: "com.facebook.react"
 apply plugin: "org.jetbrains.kotlin.android"
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 
+
 react {
     autolinkLibrariesWithApp()
 }
@@ -64,9 +65,11 @@ dependencies {
         implementation jscFlavor
     }
     implementation("com.facebook.react:react-native:0.75.4")
+    implementation project(':react-native-config')
 
     //SQlite ROOM
     implementation "androidx.room:room-runtime:2.6.1"
     annotationProcessor "androidx.room:room-compiler:2.6.1"
 
 }
+apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
