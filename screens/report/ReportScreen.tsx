@@ -8,6 +8,7 @@ import StyleTab from '../../components/reportComponent/StyleTab';
 import Chart from '../../components/reportComponent/Chart';
 import MapReport from '../../components/reportComponent/MapReport';
 import TimelineList from '../../components/reportComponent/TimelineList';
+import MapTimeline from '../../components/reportComponent/MapTimeline';
 
 const ReportScreen = () => {
   const [index, setIndex] = useState(0);
@@ -33,6 +34,7 @@ const ReportScreen = () => {
         {index === 1 && <MapReport />}
         {index === 0 && <Chart data={chartData} type="report" />}
         {(index === 0 || index === 1) && <AppList />}
+        {index === 2 && <MapTimeline />}
         {index === 2 && <TimelineList />}
       </BottomSection>
     </Conatiner>
