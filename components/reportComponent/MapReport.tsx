@@ -1,10 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import styled from 'styled-components/native';
 import MapView, {Marker, Region} from 'react-native-maps';
 import {View, Text, TouchableOpacity} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {styles} from '../../styles/styleGuide';
 import clusterData from '../../utils/clusterData';
+import {debounce} from 'lodash';
 
 const MapReport = () => {
   const [region, setRegion] = useState<Region>({
@@ -13,6 +14,8 @@ const MapReport = () => {
     latitudeDelta: 0.05,
     longitudeDelta: 0.05,
   });
+
+  const zoomButtonPressed = useRef(false);
 
   const [clusters, setClusters] = useState<
     Array<{latitude: number; longitude: number; count: number}>
@@ -35,6 +38,7 @@ const MapReport = () => {
   }, [region]);
 
   const zoomIn = () => {
+    zoomButtonPressed.current = true;
     setRegion(prevRegion => ({
       ...prevRegion,
       latitudeDelta: prevRegion.latitudeDelta / 2,
@@ -43,6 +47,7 @@ const MapReport = () => {
   };
 
   const zoomOut = () => {
+    zoomButtonPressed.current = true;
     setRegion(prevRegion => ({
       ...prevRegion,
       latitudeDelta: prevRegion.latitudeDelta * 2,
@@ -50,20 +55,20 @@ const MapReport = () => {
     }));
   };
 
+  const handleRegionChangeComplete = debounce((newRegion: Region) => {
+    if (!zoomButtonPressed.current) {
+      setRegion(newRegion);
+    } else {
+      zoomButtonPressed.current = false;
+    }
+  }, 200);
+
   return (
     <Container>
       <MapContainer>
         <StyledMap
           region={region}
-          onRegionChangeComplete={newRegion => {
-            setRegion(prevRegion => ({
-              ...prevRegion,
-              latitude: newRegion.latitude,
-              longitude: newRegion.longitude,
-              latitudeDelta: prevRegion.latitudeDelta,
-              longitudeDelta: prevRegion.longitudeDelta,
-            }));
-          }}
+          onRegionChangeComplete={handleRegionChangeComplete}
           zoomEnabled={true}
           scrollEnabled={true}>
           {clusters.map((cluster, index) => (
