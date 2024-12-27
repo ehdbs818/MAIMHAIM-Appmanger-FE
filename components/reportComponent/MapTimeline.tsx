@@ -14,7 +14,7 @@ const MapTimeline = () => {
     longitudeDelta: 0.005,
   });
 
-  const zoomButtonPressed = useRef(false); // 줌 버튼 플래그
+  const zoomButtonPressed = useRef(false);
 
   const zoomIn = () => {
     zoomButtonPressed.current = true;
@@ -44,7 +44,6 @@ const MapTimeline = () => {
     });
   };
 
-  // 조깅 루트의 좌표 리스트
   const routeList = [
     {latitude: 37.5665, longitude: 126.978},
     {latitude: 37.5665, longitude: 126.9791},
@@ -57,7 +56,6 @@ const MapTimeline = () => {
     {latitude: 37.57, longitude: 126.982},
   ];
 
-  // onRegionChangeComplete를 디바운스 처리
   const handleRegionChangeComplete = debounce((newRegion: Region) => {
     if (!zoomButtonPressed.current) {
       setRegion(newRegion);

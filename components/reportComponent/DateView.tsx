@@ -25,7 +25,6 @@ const Container = styled(View)`
   justify-content: space-between;
   align-items: center;
   flex-direction: row;
-  /* height: 48px; */
   border-radius: 15px;
   background-color: ${styles.colors.gray[100]};
   padding: 12px;

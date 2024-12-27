@@ -80,7 +80,10 @@ const AppRoutes = () => {
   return (
     <>
       <Routes>
-        <Route path="/" element={<ReportDetail />} />
+        <Route path="/" element={<HomeScreen />} />
+        <Route path="/appmanage" element={<AppManage />} />
+        <Route path="/appmanage/addapp" element={<AddApp />} />
+        <Route path="/appmanage/:id" element={<ManangeDetail />} />
         <Route path="/loding/TmoneyLoding" element={<TmoneyLoding />} />
         <Route path="/report" element={<ReportScreen />} />
         <Route path="/setting" element={<ComingSoonPage />} />

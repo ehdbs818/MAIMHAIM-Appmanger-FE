@@ -95,10 +95,8 @@ export default AppList;
 
 const Container = styled(View)`
   width: 100%;
-  /* padding: 0 21px; */
   gap: 12px;
   display: flex;
-  /* flex-direction: column; */
 `;
 
 const MoreButton = styled(TouchableOpacity)`
