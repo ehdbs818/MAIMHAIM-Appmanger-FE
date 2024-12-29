@@ -11,12 +11,21 @@ NSArray *appsData;
 
 + (void)initialize {
     appsData = @[
-        @{@"packageName": @"com.starbucks.co", @"apName": @"Starbucks", @"name": @"Starbucks", @"uid": @"1", @"urlScheme": @"starbucks"},
-        @{@"packageName": @"com.costco.dmc.store", @"apName": @"Costco", @"name": @"Costco", @"uid": @"2", @"urlScheme": @"costco"},
-        @{@"packageName": @"com.fidelity.wi.activity", @"apName": @"Fidelity", @"name": @"Fidelity", @"uid": @"3", @"urlScheme": @"netbenefits"},
-        @{@"packageName": @"com.amazon.mShop.android.shopping", @"apName": @"Amazon", @"name": @"Amazon", @"uid": @"4", @"urlScheme": @"amazonpay"},
-        @{@"packageName": @"com.lasoo.android.target", @"apName": @"Target", @"name": @"Target", @"uid": @"5", @"urlScheme": @"targetaustralia"},
-        @{@"packageName": @"com.cta.cestech", @"apName": @"CESConf", @"name": @"CESConf", @"uid": @"6", @"urlScheme": @"cesconf"},
+      @{@"packageName": @"com.amazon.mShop.android.shopping", @"apName": @"Amazon", @"name": @"Amazon Shopping", @"uid": @"1", @"urlScheme": @"amazonpay"},
+       @{@"packageName": @"bbc.mobile.news.ww", @"apName": @"BBC News", @"name": @"BBC News", @"uid": @"2", @"urlScheme": @"bbcx"},
+       @{@"packageName": @"com.cta.cestech", @"apName": @"CESConf", @"name": @"CES Conference", @"uid": @"3", @"urlScheme": @"cesconf"},
+       @{@"packageName": @"com.cnn.mobile.android.phone", @"apName": @"CNN", @"name": @"CNN Mobile", @"uid": @"4", @"urlScheme": @"cnn"},
+       @{@"packageName": @"com.costco.dmc.store", @"apName": @"Costco", @"name": @"Costco App", @"uid": @"5", @"urlScheme": @"costco"},
+       @{@"packageName": @"com.fidelity.wi.activity", @"apName": @"Fidelity", @"name": @"Fidelity", @"uid": @"6", @"urlScheme": @"Fidelity"},
+       @{@"packageName": @"com.google.android.apps.magazines", @"apName": @"Google Magazines", @"name": @"Google Magazines", @"uid": @"7", @"urlScheme": @"googlenews"},
+       @{@"packageName": @"com.ingka.ikea.app", @"apName": @"IKEA", @"name": @"IKEA App", @"uid": @"8", @"urlScheme": @"ikeaapp"},
+       @{@"packageName": @"com.google.android.apps.tachyon", @"apName": @"Google Meet", @"name": @"Google Duo", @"uid": @"9", @"urlScheme": @"gmeet"},
+       @{@"packageName": @"com.starbucks.co", @"apName": @"Starbucks", @"name": @"Starbucks Mobile", @"uid": @"10", @"urlScheme": @"starbucks"},
+       @{@"packageName": @"com.robinhood.gateway", @"apName": @"Robinhood", @"name": @"Robinhood", @"uid": @"11", @"urlScheme": @"robinhood-wallet"},
+       @{@"packageName": @"com.walmart.android", @"apName": @"Walmart", @"name": @"Walmart", @"uid": @"12", @"urlScheme": @"walmart"},
+       @{@"packageName": @"us.zoom.videomeetings", @"apName": @"Zoom", @"name": @"Zoom Meetings", @"uid": @"13", @"urlScheme": @"zoomus"},
+//       @{@"packageName": @"com.costco.dmc.store", @"apName": @"Costco Store", @"name": @"Costco Store", @"uid": @"14", @"urlScheme": @"costcostore"},
+//       @{@"packageName": @"com.starbucks.co", @"apName": @"Starbucks", @"name": @"Starbucks Coffee", @"uid": @"15", @"urlScheme": @"starbucks"}
     ];
 }
 

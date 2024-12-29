@@ -93,9 +93,16 @@
 		<string>starbucks</string>
 		<string>costco</string>
 		<string>cesconf</string>
-		<string>netbenefits</string>
+		<string>cnn</string>
 		<string>amazonpay</string>
-		<string>targetaustralia</string>
+		<string>Fidelity</string>
+		<string>bbcx</string>
+		<string>googlenews</string>
+		<string>walmart</string>
+		<string>zoomus</string>
+		<string>robinhood-wallet</string>
+		<string>gmeet</string>
+		<string>ikeaapp</string>
 	</array>
 </dict>
 </plist>
