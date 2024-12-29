@@ -2,6 +2,7 @@
 //#import <React/RCTBundleURLProvider.h>
 //#import "MyNewProject-Swift.h" // Swift 파일 사용을 위한 자동 생성 헤더
 //#import <React/RCTRootView.h>
+//#import "RNSplashScreen.h"  // here
 //
 //@implementation AppDelegate
 //
@@ -12,7 +13,7 @@
 //    ViewController *rootViewController = [[ViewController alloc] init]; // Swift ViewController 생성
 //    self.window.rootViewController = rootViewController; // 루트 뷰 컨트롤러로 설정
 //    [self.window makeKeyAndVisible];
-//
+//    [RNSplashScreen show];  // here
 //    // 알림 권한 요청
 //    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
 //    center.delegate = self;

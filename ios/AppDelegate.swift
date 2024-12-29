@@ -4,6 +4,7 @@ import UserNotifications
 import React
 import ActivityKit
 
+
 @objc(AppDelegate)
 class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate, UNUserNotificationCenterDelegate, RCTBridgeDelegate {
     var window: UIWindow?
@@ -48,7 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     ) -> Bool {
         let bridge = RCTBridge(delegate: self, launchOptions: launchOptions)
         let rootView = RCTRootView(bridge: bridge!, moduleName: "MyNewProject", initialProperties: nil)
-
+      
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = UIViewController()
         window?.rootViewController?.view = rootView
@@ -66,7 +67,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
   @objc func sourceURL(for bridge: RCTBridge) -> URL? {
       #if DEBUG
 //      연결되어있는 ip로 바꿔야함
-      return URL(string: "http://192.168.219.101:8081/index.bundle?platform=ios&dev=true")
+      return URL(string: "http://192.168.219.102:8081/index.bundle?platform=ios&dev=true")
       #else
       return Bundle.main.url(forResource: "main", withExtension: "jsbundle")
       #endif
