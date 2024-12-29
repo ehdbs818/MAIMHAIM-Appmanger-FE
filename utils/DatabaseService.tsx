@@ -10,7 +10,7 @@ const openDatabase = async (): Promise<SQLiteDatabase> => {
     return db;
   }
   try {
-    db = await SQLite.openDatabase({ name: 'app_database', location: 'default' });
+    db = await SQLite.openDatabase({ name: 'app_database.sqlite', location: 'default' });
     console.log('Database connection established');
     return db;
   } catch (error) {

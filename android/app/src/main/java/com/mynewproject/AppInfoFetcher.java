@@ -163,9 +163,9 @@ public class AppInfoFetcher {
         Log.d("AppInfoFetcher", "서버 요청");
         Thread thread = new Thread(() -> {
             try {
-                URL url = new URL("http://192.168.219.102:8080/api/v2/managed-apps");
+//                URL url = new URL("http://192.168.219.102:8080/api/v2/managed-apps");
 //                URL url = new URL("http://10.223.123.80:8080/api/v2/managed-apps");
-//                URL url = new URL("http://54.180.201.68:8080/api/v2/managed-apps");
+                URL url = new URL("http://54.180.201.68:8080/api/v2/managed-apps");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("POST");
                 conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
