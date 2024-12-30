@@ -13,9 +13,9 @@ const Chart = ({
   yAxisSteps = 4,
   type = 'report',
 }: {
-  data: any[];
-  type?: string;
-  yAxisSteps?: number;
+    data: { color: string; label: string; value: number; }[]; // Ensure `data` has the required structure
+    type?: string;
+    yAxisSteps?: number;
 }) => {
   const [containerWidth, setContainerWidth] = useState(0);
   const chartScrollRef = useRef<ScrollView>(null);
@@ -25,10 +25,48 @@ const Chart = ({
   const barWidth = type === 'report' ? 36 : 20;
   const radius = type === 'report' ? 10 : 5;
   const spacing =
-    type === 'report' ? 32 : (containerWidth - (margin * 2 + barWidth * 7)) / 6;
+     type === 'report' ? 32 : (containerWidth - (margin * 2 + barWidth * 7)) / 6;
+
+   // 데이터가 없거나 구조가 올바르지 않을 경우 처리
+   if (!data || !Array.isArray(data) || data.length === 0) {
+     console.warn("Chart data is empty or invalid:", data);
+     return (
+       <EmptyChartContainer>
+         <EmptyText>No data available</EmptyText>
+       </EmptyChartContainer>
+     );
+   }
+     const isValidData = data.every(
+       (item) =>
+         item &&
+         typeof item.value === "number" &&
+         typeof item.label === "string" &&
+         typeof item.color === "string"
+     );
+
+     if (!isValidData) {
+       console.error("Invalid data structure:", data);
+       return (
+         <EmptyChartContainer>
+           <EmptyText>Invalid data structure</EmptyText>
+         </EmptyChartContainer>
+       );
+     }
+
+   // map 내부에서 각 item의 유효성 검사
+   data.forEach((item, index) => {
+     if (item === null || item === undefined || typeof item.value !== "number" || typeof item.label !== "string" || typeof item.color !== "string") {
+       console.error(`Invalid data at index ${index}:`, item);
+     }
+   });
+
+
   const weekList = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-  const rawMaxValue = Math.max(...data.map(item => item.value));
-  const maxValue = roundUpToNearest(rawMaxValue, yAxisSteps);
+const rawMaxValue = data.length > 0 ? Math.max(...data.map((item) => item.value)) : 0;
+const maxValue = rawMaxValue > 0 ? roundUpToNearest(rawMaxValue, yAxisSteps) : yAxisSteps;
+const barHeight = (item.value / maxValue) * chartHeight;
+
+
   const tempChartWidth =
     margin * 2 + data.length * (barWidth + spacing) - spacing;
   const chartWidth =
@@ -78,6 +116,11 @@ const Chart = ({
               })}
 
               {data.map((item, index) => {
+                 if (!item || typeof item.value !== "number" || typeof item.label !== "string" || typeof item.color !== "string") {
+                   console.error(`Invalid item at index ${index}:`, item);
+                   return null; // 잘못된 항목은 건너뜁니다.
+                 }
+
                 const barHeight = (item.value / maxValue) * chartHeight;
                 const x = margin + index * (barWidth + spacing); // 첫 번째 바에 왼쪽 마진 추가
                 const y = chartHeight - barHeight;
@@ -123,15 +166,16 @@ const Chart = ({
               gap: 24,
               width: chartWidth,
             }}>
-            {[...Array(data.length)].map((_, index) => (
-              <XLabel key={index} />
+            {data.map((item, index) => (
+              <XLabelText key={index}>{item.label}</XLabelText>
             ))}
           </XLabelContainer>
+
         )}
         {type === 'detail' && (
           <XLabelDetailContainer>
             {weekList.map((value, index) => (
-              <XLabelText key={index}>{value}</XLabelText>
+              <XLabelText key={index}>{item.label}</XLabelText>
             ))}
           </XLabelDetailContainer>
         )}
@@ -203,6 +247,21 @@ const ChartCard = styled(View)`
   border-radius: 12px;
   border: 1px solid ${styles.colors.gray[100]};
   overflow: hidden;
+`;
+// 추가된 빈 차트 스타일
+const EmptyChartContainer = styled(View)`
+  width: 100%;
+  height: 176px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: ${styles.colors.gray[100]};
+  border-radius: 12px;
+`;
+
+const EmptyText = styled(Text)`
+  font-size: 16px;
+  color: ${styles.colors.gray[600]};
 `;
 
 export default Chart;

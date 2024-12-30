@@ -24,7 +24,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { loadServiceStatus, saveServiceStatus } from '../../utils/foregroundServiceUtils';
 import {useRecoilState} from 'recoil';
 import axios from 'axios';
-import { getTriggerCounts,addUser } from '../../services/apiServices'; // 앱 매니저 횟수 API 가져오기
+import { getTriggerCounts,addUser } from '../../services/apiServices';
 import DatabaseService from '../../utils/DatabaseService';
 
 
