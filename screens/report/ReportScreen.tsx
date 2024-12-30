@@ -77,44 +77,34 @@ const ReportScreen = () => {
   };
 
   const fetchWeeklyData = async (date) => {
-      try {
-          setLoading(true);
-          console.log(`Fetching data for date: ${date}`);
-          const memberId = await fetchMemberId();
-          setMemberId(memberId);
-          console.log(`Using memberId: ${memberId}`);
+    try {
+      setLoading(true);
+      console.log(`Fetching data for date: ${date}`);
+      const memberId = await fetchMemberId();
+      setMemberId(memberId);
+      console.log(`Using memberId: ${memberId}`);
 
-          const response = await getReports(memberId, date);
-          console.log('Response from server:', response);
+      const response = await getReports(memberId, date);
+      console.log('Response from server:', response);
 
-          const weeklyReport = response?.data;
+      const weeklyReport = response?.data;
+      console.log('weeklyReport from server:', weeklyReport);
 
-          if (!Array.isArray(weeklyReport) || weeklyReport.length === 0) {
-              console.warn('No data available for the selected week');
-              setChartData([]);
-              return;
-          }
-
-          const data = weeklyReport.map((entry) => {
-              if (!entry.appName || entry.count === undefined) {
-                  console.warn('Invalid entry in weekly report:', entry);
-                  return null;
-              }
-              return {
-                  value: entry.count || 0,
-                  label: entry.appName || 'Unknown',
-                  color: generateRandomColor(),
-              };
-          }).filter(Boolean);
-
-          console.log('Processed chart data:', data);
-          setChartData(data);
-      } catch (error) {
-          console.error('Error fetching weekly report:', error);
-      } finally {
-          setLoading(false);
+      if (!Array.isArray(weeklyReport) || weeklyReport.length === 0) {
+        console.warn('No data available for the selected week');
+        setChartData([]);
+        return;
       }
+
+      // 원본 데이터 그대로 저장
+      setChartData(weeklyReport);
+    } catch (error) {
+      console.error('Error fetching weekly report:', error);
+    } finally {
+      setLoading(false);
+    }
   };
+
 
     useEffect(() => {
       const currentWeekStartDate = getWeekStartDate();
