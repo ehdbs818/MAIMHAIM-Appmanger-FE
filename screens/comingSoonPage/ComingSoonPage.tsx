@@ -16,10 +16,10 @@ const ComingSoonPage = () => {
         />
       </IconsContainer>
 
-      <MessageText>해당 페이지는 준비 중이에요!</MessageText>
+      <MessageText>Hang tight! {'\n'}This page is coming soon</MessageText>
 
       <BackButton onPress={() => navigate(-1)}>
-        <BackButtonText>이전 화면으로 돌아가기</BackButtonText>
+        <BackButtonText>Return to the last page</BackButtonText>
         <BackButtonIcon
           source={require('../../assets/img/icons/icon_back.png')}
         />
@@ -50,6 +50,8 @@ const IconsContainer = styled(View)`
 const MessageText = styled(Text)`
   font-size: 16px;
   color: ${styles.colors.gray[600]};
+  justify-content: ;
+  align-items: center;
   font-weight: 500;
   margin-bottom: 20px;
 `;

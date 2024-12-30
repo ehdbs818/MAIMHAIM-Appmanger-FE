@@ -158,7 +158,7 @@ const AddApp = () => {
       </Pressable>
       <ManageContentView>
         <TopContentView>
-          <Text style={{ fontWeight: 'bold', fontSize: 22 }}>앱 추가하기</Text>
+          <Text style={{ fontWeight: 'bold', fontSize: 22 }}> Edit App List</Text>
         </TopContentView>
         <ContentView>
           <AllSelectView>
@@ -185,7 +185,7 @@ const AddApp = () => {
                 <Icon
                   name={toggleStates[index] ? 'checkbox' : 'checkbox-outline'}
                   size={20}
-                  color="#000"
+                  color="#48CBC0"
                 />
               </SelectIcon>
             </SelectView>

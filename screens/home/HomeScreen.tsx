@@ -162,7 +162,7 @@ useEffect(() => {
                                 color: isActive ? '#fff' : styles.colors.gray[600],
                             }}
                         >
-                            마임하임이 {isActive ? '일하고 있어요!' : '쉬고 있어요'}
+                            MaimHaim is {isActive ? 'up and working!' : 'taking a break.'}
                         </Text>
                         <BtnView isActive={isActive} onPress={handleButtonPress}>
                             <CircleBtn
@@ -186,7 +186,7 @@ useEffect(() => {
                                         : styles.colors.gray[600],
                                 }}
                             >
-                                지금까지 터치를
+                                So far, you've cut down
                             </Text>
                             <TouchCountContainer>
                                 <TouchCount isActive={isActive}>
@@ -194,7 +194,7 @@ useEffect(() => {
                                         {totalCount.toLocaleString()}{' '}
                                     </CountText>
                                 </TouchCount>
-                                <StatusText isActive={isActive}>회 줄였어요!</StatusText>
+                                <StatusText isActive={isActive}>touches!</StatusText>
                             </TouchCountContainer>
                         </TextView>
                     </ContentView>

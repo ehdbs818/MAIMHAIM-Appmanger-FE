@@ -47,12 +47,12 @@ const AppManage = () => {
   return (
     <AppManageView>
       <ManageContentView>
-        <Text style={{ fontWeight: 'bold', fontSize: 22 }}>앱 관리</Text>
+        <Text style={{ fontWeight: 'bold', fontSize: 32 }}>Manage Apps</Text>
         <TopContentView>
           <TextView>
             <SearchIcon name="search" size={20} color="#000" />
             <SearchInput
-              placeholder="앱 검색하기"
+              placeholder="Find an app"
               placeholderTextColor="#000"
               value={searchTerm}
               onChangeText={text => setSearchTerm(text)}
@@ -60,8 +60,8 @@ const AppManage = () => {
           </TextView>
           <AddView>
             <AddViewContent onPress={() => navigate('/appmanage/addapp')}>
-              <Icon name="add-circle" size={24} color="#979c9e" />
-              <Text style={{ color: '#888' }}>앱 추가하기</Text>
+              <Icon name="add-circle" size={24} color="#9496a1" />
+              <Text style={{ color: '#888' }}>Edit app list</Text>
             </AddViewContent>
           </AddView>
         </TopContentView>
