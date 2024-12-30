@@ -9,11 +9,12 @@ import {debounce} from 'lodash';
 
 const MapReport = () => {
   const [region, setRegion] = useState<Region>({
-    latitude: 37.78825,
-    longitude: -122.4324,
+    latitude: 36.1296, // Las Vegas Convention Center Latitude
+    longitude: -115.1676, // Las Vegas Convention Center Longitude
     latitudeDelta: 0.05,
     longitudeDelta: 0.05,
   });
+
 
   const zoomButtonPressed = useRef(false);
 
@@ -22,20 +23,26 @@ const MapReport = () => {
   >([]);
 
   const data = [
-    {latitude: 37.78825, longitude: -122.4324},
-    {latitude: 37.78835, longitude: -122.4328},
-    {latitude: 37.78845, longitude: -122.4326},
-    {latitude: 37.78885, longitude: -122.4332},
-    {latitude: 37.78925, longitude: -122.4344},
-  ];
+      {latitude: 36.1300, longitude: -115.1678},
+      {latitude: 36.1302, longitude: -115.1680},
+      {latitude: 36.1298, longitude: -115.1674},
+      {latitude: 36.1296, longitude: -115.1679},
+      {latitude: 36.1304, longitude: -115.1682},
+    ];
 
-  useEffect(() => {
-    const baseThreshold = 100;
-    const threshold = baseThreshold * region.latitudeDelta * 100;
+ useEffect(() => {
+     console.log('Map region updated:', region);
+     const baseThreshold = 100;
+     const threshold = baseThreshold * region.latitudeDelta * 100;
 
-    const clusteredData = clusterData(data, threshold);
-    setClusters(clusteredData);
-  }, [region]);
+     console.log('Clustering threshold:', threshold);
+     console.log('Raw data for clustering:', data);
+
+     const clusteredData = clusterData(data, threshold);
+     console.log('Clustered data:', clusteredData);
+
+     setClusters(clusteredData);
+   }, [region]);
 
   const zoomIn = () => {
     zoomButtonPressed.current = true;
