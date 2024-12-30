@@ -23,6 +23,14 @@ import { getAppDetails } from '../../services/apiServices'; // 고급모드 API 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AlertModal from '../../components/manageComponent/AlterModal';
 import NotificationModal from '../../components/manageComponent/NotificationModal'; // NotificationModal 임포트
+import Gps from '../../assets/defaultIcon/GPS.svg';
+import Loc from '../../assets/defaultIcon/Location.svg';
+import Mot from '../../assets/defaultIcon/Motion.svg';
+import Tm from '../../assets/defaultIcon/Time.svg';
+import Sched from '../../assets/defaultIcon/Schedule.svg';
+import Sort from '../../assets/defaultIcon/Sorting.svg';
+import Opt from '../../assets/defaultIcon/Option.svg';
+import Pencil from '../../assets/defaultIcon/pencil.svg';
 
 const ManangeDetail = () => {
   const [toggleStates, setToggleStates] = useState(true);
@@ -142,7 +150,7 @@ const fetchAppDetails = async (appId, memberId) => {
     setToggleStates(!storedState); // 고급모드일 때 toggleStates 설정
   } catch (error) {
     console.error('Error fetching app details:', error);
-    Alert.alert('오류', '앱 정보를 불러오는 중 문제가 발생했습니다.');
+    Alert.alert('Error', 'An issue occurred while retrieving the app information.');
     throw error;
   }
 };
@@ -211,7 +219,7 @@ const fetchTriggers = async () => {
     }
   } catch (error) {
     console.error('Error fetching triggers:', error);
-    Alert.alert('오류', '트리거 데이터를 불러오는 중 문제가 발생했습니다.');
+    Alert.alert('Error', 'An issue occurred while retrieving trigger data.');
   }
 };
 
@@ -273,7 +281,7 @@ useEffect(() => {
         );
 
         if (!selectedTrigger) {
-          throw new Error('해당 트리거를 찾을 수 없습니다.');
+          throw new Error('The specified trigger could not be found.');
         }
 
         console.log(
@@ -380,13 +388,13 @@ const handleOptionPress = async (optionName) => {
 
       setAllowed(updatedAllowed);
       console.log(
-        `${optionName} 트리거 활성 상태가 ${
-          updatedAllowed ? '활성화' : '비활성화'
-        }되었습니다.`,
+        `${optionName} trigger is ${
+          updatedAllowed ? 'Activated' : 'Deactivated'
+        }`,
       );
     } catch (error) {
       console.error('Failed to update trigger activation:', error);
-      Alert.alert('오류', '트리거 활성화 상태 변경 중 문제가 발생했습니다.');
+      Alert.alert('Error', 'An issue occurred while changing the trigger activation status.');
     }
   } else {
     // 트리거가 없으면 기본 옵션 'run'으로 처리
@@ -447,12 +455,12 @@ const handleOptionPress = async (optionName) => {
   </HeaderView>
             {toggleStates && (
               <>
-                <Title>위치 설정</Title>
+                <Title>Location Settings</Title>
                 <LocationBox>
-                  <Icon name="location-outline" size={20} color="#6e6e6e" />
-                  <LocationText>{selectedItem.name} 전 지점</LocationText>
+                  <Gps size={24} color="#494A56" />
+                  <LocationText>{selectedItem.name} 'Location Info'</LocationText>
                   <EditButton>
-                    <Icon name="pencil-outline" size={20} color="#6e6e6e" />
+                    <Pencil size={24} color="#494A56" />
                   </EditButton>
                 </LocationBox>
               </>
@@ -535,22 +543,29 @@ const handleOptionPress = async (optionName) => {
 
                         {selectedOption !== 'Time' && (
                           <LocationBox2 onPress={onAddressScreen}>
-                            <Icon
-                              name="location-outline"
-                              size={20}
-                              color="#6e6e6e"
+                            <Gps
+                              size={24}
+                              color="#494A56"
                             />
                             <LocationText>
                               "Location Info"
                             </LocationText>
                             <EditButton>
-                              <Icon
-                                name="pencil-outline"
-                                size={20}
-                                color="#6e6e6e"
+                              <Pencil
+                                size={24}
+                                color="#494A56"
                               />
                             </EditButton>
                           </LocationBox2>
+                        )}
+                        {selectedOption === 'Motion' && (
+                          <MotionBox>
+                           <MotionText>Motion</MotionText>
+                           <OptionText style = {{left: 125,color: '#777986', fontSize: 16}}>Shake</OptionText>
+                           <EditButton>
+                             <Opt size={24} color="#494A56" />
+                           </EditButton>
+                          </MotionBox>
                         )}
                       </>
                     )}
@@ -573,23 +588,17 @@ const handleOptionPress = async (optionName) => {
                       IconTest();
                     }}>
                     <Tag>
-                      <Icon
-                        name={
-                          selectedOption === 'run'
-                            ? 'map-outline'
-                            : selectedOption === 'Location'
-                            ? 'map-outline'
-                            : selectedOption === 'Motion'
-                            ? 'walk-outline'
-                            : selectedOption === 'Time'
-                            ? 'time-outline'
-                            : selectedOption === 'Schedule'
-                            ? 'calendar-outline'
-                            : '#CCCCCC'
-                        }
-                        size={24}
-                        color="#fff"
-                      />
+                    {/* 조건부로 SVG 렌더링 */}
+                          {selectedOption === 'run' || selectedOption === 'Location' ? (
+                            <Loc width={24} height={24} />
+                          ) : selectedOption === 'Motion' ? (
+                            <Mot width={24} height={24} />
+                          ) : selectedOption === 'Time' ? (
+                            <Tm width={24} height={24}  />
+                          ) : selectedOption === 'Schedule' ? (
+                            <Sched width={24} height={24} />
+                          ) : ('#CCCCCC')
+                          }
                     </Tag>
                   </FeatureRight>
                 </FeatureContainer>
@@ -621,7 +630,7 @@ const handleOptionPress = async (optionName) => {
                           }}>
                           <OptionText>Location</OptionText>
                           <OptionIcon color={'FF5D5D'}>
-                            <Icon name="map-outline" size={24} color="#fff" />
+                            <Loc size={24} color="#fff" />
                           </OptionIcon>
                         </Option>
                         {/* 모션 기반 */}
@@ -635,7 +644,7 @@ const handleOptionPress = async (optionName) => {
                           }}>
                           <OptionText>Motion</OptionText>
                           <OptionIcon color={'39C892'}>
-                            <Icon name="walk-outline" size={24} color="#fff" />
+                            <Mot size={24} color="#fff" />
                           </OptionIcon>
                         </Option>
                         {/* 모션 기반 */}
@@ -649,7 +658,7 @@ const handleOptionPress = async (optionName) => {
                           }}>
                           <OptionText>Time</OptionText>
                           <OptionIcon color={'8159DE'}>
-                            <Icon name="time-outline" size={24} color="#fff" />
+                            <Tm size={24} color="#fff" />
                           </OptionIcon>
                         </Option>
                         <Option
@@ -677,8 +686,7 @@ const handleOptionPress = async (optionName) => {
                             </Text>
                           </OptionText>
                           <OptionIcon color={'299AD0'}>
-                            <Icon
-                              name="calendar-outline"
+                            <Sched
                               size={24}
                               color="#fff"
                             />
@@ -722,7 +730,7 @@ const handleOptionPress = async (optionName) => {
                       ))}
                       <AddressButton
                         onPress={() => setAddressModalVisible(false)}>
-                        <CloseButtonText>창닫기</CloseButtonText>
+                        <CloseButtonText>Close</CloseButtonText>
                         <CloseIcon
                           name="close-outline"
                           size={16}
@@ -735,7 +743,7 @@ const handleOptionPress = async (optionName) => {
                  <AlertModal
                             visible={modalVisible}
                             onClose={() => setModalVisible(false)}
-                            message="일정 기반 설정은 준비 중입니다!"
+                            message="This page is currently in the works"
                           />
               </>
             )}
@@ -743,7 +751,7 @@ const handleOptionPress = async (optionName) => {
 
 
         ) : (
-          <Text>해당 아이템을 찾을 수 없습니다.</Text>
+          <Text>The specified item could not be found.</Text>
         )}
       </Container>
       <View style={{padding: 20}}></View>
@@ -776,9 +784,9 @@ const BackButton = styled(Pressable)`
 const AppName = styled(Text)``;
 
 const ToggleBtn = styled(Pressable)<{ toggleStates: boolean }>`
-  width: 124px;
+  width: 96px;
   background-color: ${({ toggleStates }) =>
-    toggleStates ? styles.colors.brand.primary : styles.colors.gray[300]};
+    toggleStates ? styles.colors.brand.primary : '#9496A1'};
   height: 36px;
   border-radius: 25px;
   position: relative;
@@ -788,9 +796,10 @@ const ToggleBtn = styled(Pressable)<{ toggleStates: boolean }>`
 `;
 
 const SwitchText = styled(Text)<{toggleStates: boolean}>`
-  color: #fff;
+  color: #FBFBFC;
   font-size: 14px;
-  margin-left: ${({toggleStates}) => (toggleStates ? '55px' : '15px')};
+  font-weight: bold;
+  margin-left: ${({toggleStates}) => (toggleStates ? '15px' : '57px')};
 `;
 
 const CircleBtn = styled(View)<{toggleStates: boolean}>`
@@ -800,12 +809,12 @@ const CircleBtn = styled(View)<{toggleStates: boolean}>`
   background: #fff;
   position: absolute;
   right: 3px;
-  ${({toggleStates}) => (toggleStates ? 'left:3px;' : 'right:3px;')}
+  ${({toggleStates}) => (toggleStates ? 'right:3px;' : 'left:3px;')}
 `;
 
 const Title = styled(Text)`
   font-weight: bold;
-  font-size: 14px;
+  font-size: 16px;
   margin-bottom: 8px;
 `;
 
@@ -815,9 +824,9 @@ const LocationBox = styled(View)`
   align-items: center;
   background-color: ${styles.colors.gray[100]};
   padding: 12px;
-  border-radius: 10px;
+  border-radius: 15px;
   justify-content: space-between;
-  margin-bottom: 16px;
+  margin-bottom: 24px;
 `;
 
 const LocationBox2 = styled(Pressable)`
@@ -897,7 +906,7 @@ const ItemText = styled(Text)<{allowed: boolean}>`
   font-weight: ${({allowed}) => (allowed ? 500 : 'normal')};
   padding-left: 16px;
   flex: 2;
-  font-size: 16px;
+  font-size: 18px;
 `;
 
 const FeatureBottom = styled(View)`
@@ -1070,5 +1079,22 @@ const LocationMotionText = styled(View)`
   padding-left: 16px;
   margin-top: -10px;
 `;
+const MotionBox = styled(View)`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 8px;
+  justify-content: space-between;
+  margin: 0 16px;
+  margin-bottom: 16px;
+`;
 
+const MotionText = styled(Text)`
+  font-size: 16px;
+  color: #282A3A;
+  margin-left: 10px;
+  font-weight: bold;
+`;
 
