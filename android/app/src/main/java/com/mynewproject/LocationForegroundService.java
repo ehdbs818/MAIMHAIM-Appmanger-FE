@@ -66,7 +66,7 @@ public class LocationForegroundService extends Service {
     public static boolean shake_determine = false;
     private long entryStartTime = 0; // Wi-Fi 진입 시 타이머 시작 시간
     private long exitStartTime = 0; // Wi-Fi 이탈 시 타이머 시작 시간
-    private static final long DWELL_TIME_THRESHOLD = 1000; // 2초 (진입 또는 이탈을 판단하기 위한 시간 임계값)
+    private static final long DWELL_TIME_THRESHOLD = 500; // 2초 (진입 또는 이탈을 판단하기 위한 시간 임계값)
     private static final int NOTIFICATION_ID = 1;
     private FusedLocationProviderClient fusedLocationClient;
     private LocationCallback locationCallback;
@@ -95,11 +95,11 @@ public class LocationForegroundService extends Service {
     private Map<String, ParticleFilter> particleFilters = new HashMap<>();
 
     private AppDB appDB;  // AppDB 인스턴스 추가
-    private String[] packageNames = { "starbucks" , "walmart","costco","amazon"};
+    private String[] packageNames = { "starbucks" , "walmart","costco","ces"};
     private String lastPackageName; // 마지막에 진입한 패키지 이름을 저장
-    private double OUTER_BOUNDARY = 1.0;
+    private double OUTER_BOUNDARY = 0.2;
 
-    private double INNER_BOUNDARY = 2.0;
+    private double INNER_BOUNDARY = 0.2;
     private static LocationForegroundService instance;
     ShakeDetector shakeDetector ;
     public static LocationForegroundService getInstance() {
@@ -184,7 +184,7 @@ public class LocationForegroundService extends Service {
             while (isScanning) {
                 scanWifiNetworks();
                 try {
-                    Thread.sleep(230 )           ; // 5초 간격으로 스캔
+                    Thread.sleep(350 )           ; // 5초 간격으로 스캔
                 } catch (InterruptedException e) {
                     Log.e("WifiScan", "Wi-Fi 스캔 스레드 중단됨", e);
                     isScanning = false; // 스캔 중단
