@@ -253,16 +253,16 @@ useEffect(() => {
 
   const addresses = [
     {
-      roadName: `${selectedItem.name} 서대문 지점`,
-      lotName: "서울특별시 서대문구 연세로 50",
+      roadName: `${selectedItem.name} (Alvarado & 3rd)`,
+      lotName: "230 S Alvarado St, Los Angeles, CA 90057",
     },
     {
-      roadName: `${selectedItem.name} 광한리 지점`,
-      lotName: "강원도 강릉시 경포로 365",
+      roadName: `${selectedItem.name} (2nd & Central)`,
+      lotName: "138 S.Central Avenue, Los Angeles, CA 90012",
     },
     {
-      roadName: `${selectedItem.name} 사당역 지점`,
-      lotName: "서울특별시 동작구 사당로 300",
+      roadName: `${selectedItem.name} (6th & Spring)`,
+      lotName: "603 S.Spring Street, Los Angeles, CA 90014",
     },
   ];
 
