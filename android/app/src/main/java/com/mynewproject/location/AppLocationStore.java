@@ -17,9 +17,9 @@ public class AppLocationStore {
 
     static {
         try {
-            FIXED_LOCATIONS.put("kcard", new JSONObject()
-                    .put("location", "Kookmin Univ")
-                    .put("address", "77, Jeongneung-ro, Seongbuk-gu, Seoul, Republic of Korea")
+            FIXED_LOCATIONS.put("walmart", new JSONObject()
+                    .put("location", "Walmart San Leandro")
+                    .put("address", "1919 Davis St, San Leandro, CA 94577")
                     .put("latitude", 37.611035490773)
                     .put("longitude", 126.99457310622));
 
@@ -29,14 +29,14 @@ public class AppLocationStore {
                     .put("latitude", 47.580974)
                     .put("longitude", -122.316275));
 
-            FIXED_LOCATIONS.put("gs25", new JSONObject()
-                    .put("location", "GS25 Convenience Store")
+            FIXED_LOCATIONS.put("costco", new JSONObject()
+                    .put("location", "Costco San Leandro")
                     .put("address", "Some Address, Seoul, Korea")
                     .put("latitude", 37.5650172)
                     .put("longitude", 126.849465));
 
-            FIXED_LOCATIONS.put("golfzon", new JSONObject()
-                    .put("location", "Golfzon Park")
+            FIXED_LOCATIONS.put("amazon", new JSONObject()
+                    .put("location", "amazon San Leandro")
                     .put("address", "Some Address, Daejeon, Korea")
                     .put("latitude", 36.35111)
                     .put("longitude", 127.38500));

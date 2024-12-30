@@ -8,12 +8,21 @@ const roundUpToNearest = (num: number, multiple: number) => {
   return Math.ceil(num / multiple) * multiple;
 };
 
+const generateRandomColor = () => {
+  const letters = '0123456789ABCDEF';
+  let color = '#';
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+};
+
 const Chart = ({
   data,
   yAxisSteps = 4,
   type = 'report',
 }: {
-  data: any[];
+  data: any[]; // 원본 데이터를 받음
   type?: string;
   yAxisSteps?: number;
 }) => {
@@ -25,12 +34,55 @@ const Chart = ({
   const barWidth = type === 'report' ? 36 : 20;
   const radius = type === 'report' ? 10 : 5;
   const spacing =
-    type === 'report' ? 32 : (containerWidth - (margin * 2 + barWidth * 7)) / 6;
+     type === 'report' ? 32 : (containerWidth - (margin * 2 + barWidth * 7)) / 6;
+
+    console.log('Raw data passed to Chart:', data);
+
+
+  // 데이터 정제
+    const processedData = data
+      .filter((entry, index) => {
+        const isValid = entry && typeof entry.appName === "string" && Array.isArray(entry.weeklyReport);
+        if (!isValid) {
+          console.error(`Invalid entry at index ${index}:`, entry);
+        }
+        return isValid;
+      })
+      .map((entry) => {
+        const weekdata = entry.weeklyReport.map((value, index) => ({
+          weekLabel: `Day ${index + 1}`,
+          weekValue: value,
+        }));
+
+        return {
+          value: entry.count || 0,
+          label: entry.appName || "Unknown",
+          color: generateRandomColor(),
+          weekdata,
+        };
+      });
+
+    console.log('Processed data for Chart:', processedData);
+
+    // 데이터가 없거나 유효하지 않은 경우 처리
+    if (!processedData || !Array.isArray(processedData) || processedData.length === 0) {
+      console.warn('Chart data is empty or invalid:', processedData);
+      return (
+        <EmptyChartContainer>
+          <EmptyText>No data available</EmptyText>
+        </EmptyChartContainer>
+      );
+    }
+
+
   const weekList = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-  const rawMaxValue = Math.max(...data.map(item => item.value));
-  const maxValue = roundUpToNearest(rawMaxValue, yAxisSteps);
+  const rawMaxValue = Math.max(...processedData.map((item) => item.value));
+const maxValue = rawMaxValue > 0 ? roundUpToNearest(rawMaxValue, yAxisSteps) : 1; // 최소값 1 보장
+//const barHeight = (item.value / maxValue) * chartHeight;
+
+
   const tempChartWidth =
-    margin * 2 + data.length * (barWidth + spacing) - spacing;
+    margin * 2 + processedData.length * (barWidth + spacing) - spacing;
   const chartWidth =
     tempChartWidth > containerWidth ? tempChartWidth : containerWidth;
 
@@ -77,10 +129,17 @@ const Chart = ({
                 );
               })}
 
-              {data.map((item, index) => {
-                const barHeight = (item.value / maxValue) * chartHeight;
-                const x = margin + index * (barWidth + spacing); // 첫 번째 바에 왼쪽 마진 추가
-                const y = chartHeight - barHeight;
+              {processedData.map((item, index) => {
+                 if (!item || typeof item.value !== "number") {
+                   console.error(`Invalid item at index ${index}:`, item);
+                   return null; // 잘못된 항목은 무시
+                 }
+                 console.log(`Item being rendered (index: ${index}):`, item);
+                 const barHeight = maxValue > 0 ? (item.value / maxValue) * chartHeight : 0;
+                 console.log(`Calculated barHeight: ${barHeight} for index ${index}`);
+                 const x = margin + index * (barWidth + spacing);
+                 const y = chartHeight - barHeight;
+
 
                 return (
                   <React.Fragment key={index}>
@@ -123,15 +182,16 @@ const Chart = ({
               gap: 24,
               width: chartWidth,
             }}>
-            {[...Array(data.length)].map((_, index) => (
-              <XLabel key={index} />
+            {processedData.map((item, index) => (
+              <XLabelText key={index}>{item.label}</XLabelText>
             ))}
           </XLabelContainer>
+
         )}
         {type === 'detail' && (
           <XLabelDetailContainer>
             {weekList.map((value, index) => (
-              <XLabelText key={index}>{value}</XLabelText>
+              <XLabelText key={index}>{value}</XLabelText> // weekList는 문자열 배열이므로 'value'를 사용
             ))}
           </XLabelDetailContainer>
         )}
@@ -203,6 +263,21 @@ const ChartCard = styled(View)`
   border-radius: 12px;
   border: 1px solid ${styles.colors.gray[100]};
   overflow: hidden;
+`;
+// 추가된 빈 차트 스타일
+const EmptyChartContainer = styled(View)`
+  width: 100%;
+  height: 176px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: ${styles.colors.gray[100]};
+  border-radius: 12px;
+`;
+
+const EmptyText = styled(Text)`
+  font-size: 16px;
+  color: ${styles.colors.gray[600]};
 `;
 
 export default Chart;

@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 
-// const API_BASE_URL = 'http://192.168.219.102:8080/api/v1';
 const API_BASE_URL = 'http://54.180.201.68:8080/api/v1';
 
 
@@ -200,6 +199,31 @@ export const getAppDetails = async (appId: number, memberId: number) => {
   } catch (error) {
     console.error("Error fetching app details:", error.response?.data || error.message);
     throw error;
+  }
+};
+
+// 전체 리포트 조회 API
+export const getReports = async (memberId, startDate) => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/reports/${memberId}/${startDate}`);
+    return response.data; // 필요한 데이터만 반환
+  } catch (error) {
+    console.error("Error in getReports:", error.message);
+    console.error("Error details:", error.response?.data || error);
+    throw error; // 에러를 다시 던져 상위에서 처리
+  }
+};
+
+
+// 앱별 리포트 조회 API
+export const getAppReport = async (memberId, startDate, appId) => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/reports/${memberId}/${startDate}/${appId}`);
+    return response.data; // 필요한 데이터만 반환
+  } catch (error) {
+    console.error("Error in getAppReport:", error.message);
+    console.error("Error details:", error.response?.data || error);
+    throw error; // 에러를 다시 던져 상위에서 처리
   }
 };
 
