@@ -75,6 +75,7 @@ const [memberId, setMemberId] = useState<number | null>(null); // AsyncStorageì—
    try {
      const key = `advancedActivate_${memberId}_${appId}`;
      await AsyncStorage.setItem(key, JSON.stringify(state));
+     await ActivateModule.activateAdvanced(selectedItem.packageName, state);
      console.log(`Saved advancedActivate state: ${state} for appId: ${appId}`);
    } catch (error) {
      console.error('Error saving advanced activate state:', error);

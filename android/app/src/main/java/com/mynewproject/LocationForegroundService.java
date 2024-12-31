@@ -95,7 +95,7 @@ public class LocationForegroundService extends Service {
     private Map<String, ParticleFilter> particleFilters = new HashMap<>();
 
     private AppDB appDB;  // AppDB 인스턴스 추가
-    private String[] packageNames = {"kcard" , "starbucks" , "gs25","golfzon","hollys"};
+    private String[] packageNames = { "starbucks" , "walmart","costco","ces"};
     private String lastPackageName; // 마지막에 진입한 패키지 이름을 저장
     private double OUTER_BOUNDARY = 1.0;
 
@@ -105,7 +105,7 @@ public class LocationForegroundService extends Service {
     public static LocationForegroundService getInstance() {
         return instance;
     }
-//    리팩토링
+    //    리팩토링
     private NotificationHelper notificationHelper;
     private AppDatabaseHelper appDatabaseHelper;
 
@@ -485,12 +485,12 @@ public class LocationForegroundService extends Service {
                     if (locationData != null) {
                         try {
                             JSONObject payload = new JSONObject();
-                            payload.put("memberId", 1); // 필요 시 동적으로 설정
+                            payload.put("memberId", memberId); // 필요 시 동적으로 설정
                             payload.put("type", "LOCATION");
                             payload.put("raw", locationData);
 
                             // 서버로 데이터 전송
-                            AppServerClient.sendDataToServer(appName, payload);
+                            AppServerClient.sendDataToServer(lastPackageName, payload);
 
                             Log.d("wifi_information2", "Location data sent to server for: " + appName);
                         } catch (Exception e) {
@@ -517,10 +517,10 @@ public class LocationForegroundService extends Service {
     }
     public void checkAndHandleWifiExit(String SSID_name, boolean active) {
         Log.d("checkAndHandleWifiExit", "checkAndHandleWifiExit: " +(names != null) +(SSID_name!=null) + isHomeWifiDetected );
-            if ((names != null && names.contains(SSID_name) && isHomeWifiDetected) ) {
-                exitStartTime = 0; // 이탈 후 타이머 초기화
-                leaveHandle(SSID_name, active);
-            }
+        if ((names != null && names.contains(SSID_name) && isHomeWifiDetected) ) {
+            exitStartTime = 0; // 이탈 후 타이머 초기화
+            leaveHandle(SSID_name, active);
+        }
     }
 
     public void leaveHandle(String SSID_name, boolean active) {

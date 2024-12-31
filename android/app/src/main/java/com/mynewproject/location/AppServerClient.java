@@ -7,7 +7,7 @@ import okhttp3.*;
 import java.io.IOException;
 
 public class AppServerClient {
-    private static final String BASE_URL = "http://http://54.180.201.68:8080/api/v2/apps/";
+    private static final String BASE_URL = "http://54.180.201.68:8080/api/v2/apps/";
 
     public static void sendDataToServer(String packageName, JSONObject payload) {
         String url = BASE_URL + packageName + "/count";
@@ -19,6 +19,10 @@ public class AppServerClient {
                 .post(body)
                 .build();
 
+        // Log the URL and Payload
+        Log.d("AppServerClient", "Sending data to URL: " + url);
+        Log.d("AppServerClient", "Payload: " + payload.toString());
+
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -28,11 +32,14 @@ public class AppServerClient {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {
-                    Log.d("AppServerClient", "Data sent successfully: " + response.body().string());
+                    Log.d("AppServerClient", "Data sent successfully with status code: " + response.code());
+                    Log.d("AppServerClient", "Response body: " + response.body().string());
                 } else {
-                    Log.e("AppServerClient", "Server error: " + response.message());
+                    Log.e("AppServerClient", "Server error with status code: " + response.code());
+                    Log.e("AppServerClient", "Error response body: " + response.body().string());
                 }
             }
+
         });
     }
 }

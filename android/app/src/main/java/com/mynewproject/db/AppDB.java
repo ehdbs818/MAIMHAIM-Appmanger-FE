@@ -17,7 +17,7 @@ public abstract class AppDB extends RoomDatabase {
     public static synchronized AppDB getInstance(Context context) {
         if (instance == null) {
             instance = Room.databaseBuilder(context.getApplicationContext(),
-                            AppDB.class, "app_database")
+                            AppDB.class, "app_database.sqlite")
                     .fallbackToDestructiveMigration() // 버전 변경 시 데이터베이스를 초기화할지 여부
                     .build();
         }
