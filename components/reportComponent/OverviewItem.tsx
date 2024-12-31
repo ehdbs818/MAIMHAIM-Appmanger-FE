@@ -6,19 +6,26 @@ import {styles} from '../../styles/styleGuide';
 interface overviewItemProps {
   appName: string;
   address: string;
-  times: number;
+  count: number;
   index: number;
 }
 
-const OverviewItem = ({appName, address, times, index}: overviewItemProps) => {
+const OverviewItem = ({appName, address, count, index}: overviewItemProps) => {
+  console.log('Rendering OverviewItem:', {appName, address, count, index});
+  console.log('CountText value:', count);
+
   return (
     <Container>
-      <Numbering>{index}</Numbering>
-      <ContentSection>
-        <AppName>{appName}</AppName>
-        <Address>{address}</Address>
-      </ContentSection>
-      <TimesText>{times}</TimesText>
+      <LeftSection>
+        <Numbering>{index}</Numbering>
+        <ContentSection>
+          <AppName>{appName}</AppName>
+          <Address>{address}</Address>
+        </ContentSection>
+      </LeftSection>
+      <RightSection>
+        <CountText>{`${count} times`}</CountText>
+      </RightSection>
     </Container>
   );
 };
@@ -27,13 +34,21 @@ export default OverviewItem;
 
 const Container = styled(View)`
   width: 100%;
-  padding: 11px 24px 11px 16px;
+  padding: 11px 16px;
   display: flex;
   flex-direction: row;
-  gap: 20px;
+  justify-content: space-between;
   align-items: center;
   border-radius: 15px;
   background-color: ${styles.colors.gray[100]};
+`;
+
+const LeftSection = styled(View)`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
 `;
 
 const Numbering = styled(Text)`
@@ -46,7 +61,7 @@ const Numbering = styled(Text)`
 
 const ContentSection = styled(View)`
   display: flex;
-  width: 100%;
+  gap: 4px;
 `;
 
 const AppName = styled(Text)`
@@ -61,7 +76,18 @@ const Address = styled(Text)`
   color: ${styles.colors.gray[900]};
 `;
 
-const TimesText = styled(Text)`
+const RightSection = styled(View)`
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+`;
+
+const CountText = styled(Text)`
   font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  text-align: right;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
   color: ${styles.colors.gray[500]};
 `;

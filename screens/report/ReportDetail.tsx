@@ -145,7 +145,7 @@ const handlePrevWeek = () => {
             <>
               <Chart_detail data={chartData} type="detail" />
               <ListTitle>Branch Overview</ListTitle>
-              <OverviewList data={overviewData} />
+              <OverviewList appName={appName} data={overviewData} />
             </>
           )}
         </BottomSection>
